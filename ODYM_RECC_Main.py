@@ -49,8 +49,8 @@ def main():
     ##################################
     #    Section 1)  Initialize      #
     ##################################
-    # add ODYM module directory to system path
-    sys.path.insert(0, os.path.join(os.path.join(RECC_Paths.odym_path,'odym'),'modules'))
+    # add ODYM package source directory (src layout, odym v0.1.0+) to system path
+    sys.path.insert(0, os.path.join(RECC_Paths.odym_path,'src'))
     ### 1.1.) Read main script parameters
     # Mylog.info('### 1.1 - Read main script parameters')
     ProjectSpecs_Name_ConFile = 'RECC_Config.xlsx'
@@ -66,11 +66,12 @@ def main():
     ProjectSpecs_User_Name     = getpass.getuser()
     
     # import packages whose location is now on the system path:    
-    import ODYM_Classes as msc # import the ODYM class file
+    import odym # import the ODYM package (for odym.__version__)
+    import odym.classes as msc # import the ODYM class file
     importlib.reload(msc)
-    import ODYM_Functions as msf  # import the ODYM function file
+    import odym.functions as msf  # import the ODYM function file
     importlib.reload(msf)
-    import dynamic_stock_model as dsm # import the dynamic stock model library
+    import odym.dynamic_stock_model as dsm # import the dynamic stock model library
     importlib.reload(dsm)
     
     Name_Script        = Model_Configsheet.cell(6,4).value
@@ -104,8 +105,7 @@ def main():
     
     Mylog.info('Script: ' + Name_Script + '.py')
     Mylog.info('Model script version: ' + __version__)
-    Mylog.info('Model functions version: ' + msf.__version__())
-    Mylog.info('Model classes version: ' + msc.__version__())
+    Mylog.info('ODYM package version: ' + odym.__version__)
     Mylog.info('Current User: ' + ProjectSpecs_User_Name)
     Mylog.info('Current Scenario: ' + Name_Scenario)
     Mylog.info(ScriptConfig['Description'])
